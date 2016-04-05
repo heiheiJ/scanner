@@ -1,6 +1,5 @@
 package com.jhyarrow.scanner;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,25 +8,32 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MainActivity extends Activity{
-	private Button logIn;
-	private Button register;
+public class LogInActivity extends Activity{
+	private Button submit;
+	private Button cancel;
 	private Context mContext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.log_in);
 		mContext = this;
-		logIn = (Button) findViewById(R.id.logIn);
-		register = (Button) findViewById(R.id.register);
+		submit = (Button) findViewById(R.id.submit);
+		cancel = (Button) findViewById(R.id.cancel);
 		
-		//注册登录按钮点击事件
-		logIn.setOnClickListener(new OnClickListener() {
+		submit.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mContext,LogInActivity.class);
+				Intent intent = new Intent(mContext,MainViewActivity.class);
 				startActivity(intent);
+			}
+		});
+		
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();		
 			}
 		});
 	}
