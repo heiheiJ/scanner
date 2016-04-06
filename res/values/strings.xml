@@ -11,4 +11,6 @@
 	<string name="submit">提交</string>
 	<string name="cancel">取消</string>
 	<string name="test">帅哥你好！</string>
+	<string name="email">邮箱</string>
+	<string name="phone">手机号码</string>
 </resources>

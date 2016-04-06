@@ -20,15 +20,17 @@ public class LogInActivity extends Activity{
 		submit = (Button) findViewById(R.id.submit);
 		cancel = (Button) findViewById(R.id.cancel);
 		
+		//提交按钮
 		submit.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext,MainViewActivity.class);
 				startActivity(intent);
+				finish();
 			}
 		});
-		
+		//返回按钮
 		cancel.setOnClickListener(new OnClickListener() {
 			
 			@Override
