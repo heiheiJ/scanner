@@ -56,15 +56,33 @@
         android:ems="10" />
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/registerSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit" />
 
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/registerCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel" />
+
+    <ImageView
+        android:id="@+id/registerValidatePic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" />
+
+    <EditText
+        android:id="@+id/registerValidateCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/registerValidate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change" />
 
 </LinearLayout>

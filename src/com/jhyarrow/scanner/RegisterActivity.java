@@ -1,30 +1,32 @@
 package com.jhyarrow.scanner;
 
 import com.jhyarrow.scanner.http.HttpClientRegisterThread;
-import com.jhyarrow.scanner.http.HttpClientThread;
+import com.jhyarrow.scanner.util.Code;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class RegisterActivity extends Activity{
 	private Button submit;
 	private Button cancel;
-	private Context mContext;
+	private Button validate;
+	private ImageView validatePic;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
-		mContext = this;
-		submit = (Button) findViewById(R.id.submit);
-		cancel = (Button) findViewById(R.id.cancel);
-		
+		submit = (Button) findViewById(R.id.registerSubmit);
+		cancel = (Button) findViewById(R.id.registerCancel);
+		validate = (Button) findViewById(R.id.registerValidate);
+		validatePic = (ImageView) findViewById(R.id.registerValidatePic);
+		validatePic.setImageBitmap(Code.getInstance().createBitmap());
 		//提交按钮
 		submit.setOnClickListener(new OnClickListener() {
 			
@@ -49,6 +51,16 @@ public class RegisterActivity extends Activity{
 			public void onClick(View v) {
 				finish();
 				
+			}
+		});
+		
+		//验证码按钮
+		validate.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				validatePic = (ImageView) findViewById(R.id.registerValidatePic);
+				validatePic.setImageBitmap(Code.getInstance().createBitmap());
 			}
 		});
 	}
