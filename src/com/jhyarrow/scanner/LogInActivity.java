@@ -10,6 +10,7 @@ import com.jhyarrow.scanner.util.Code;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,23 +30,31 @@ public class LogInActivity extends Activity{
 	private String code;
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg) {
-			JSONTokener jsonParser = new JSONTokener((String)msg.obj);   
+			JSONTokener jsonParser = new JSONTokener((String)msg.obj);  
+			boolean flag = false;
 			try {
 				JSONObject result = (JSONObject) jsonParser.nextValue();
 				System.out.println(msg.obj);
-				if(result.getString("result").equals("true")){
+				if(result.getString("username").equals("false")){
+					new AlertDialog.Builder(LogInActivity.this)
+					.setMessage("用户名不存在")
+					.setPositiveButton("确定", null)
+					.show();
+				}else if(result.getString("result").equals("true")){
 					new AlertDialog.Builder(LogInActivity.this)
 					.setMessage("登录成功")
 					.setPositiveButton("确定", null)
 					.show();
-					finish();
+					flag = true;
 				}else if(result.getString("result").equals("false")){
 					new AlertDialog.Builder(LogInActivity.this)
 					.setMessage("密码不正确")
 					.setPositiveButton("确定", null)
 					.show();
 				}
-
+				Intent intent = new Intent(mContext,MainViewActivity.class);
+				startActivity(intent);
+				finish();
 			} catch (JSONException e) {
 				
 				e.printStackTrace();
@@ -68,7 +77,7 @@ public class LogInActivity extends Activity{
 		para.width = 500;
 		validatePic.setLayoutParams(para);
 		code = Code.getInstance().getCode();
-		
+		System.out.println("验证码" + code);
 		//提交按钮
 		submit.setOnClickListener(new OnClickListener() {
 			
@@ -78,13 +87,14 @@ public class LogInActivity extends Activity{
 				EditText password = (EditText)findViewById(R.id.loginPassword);
 				EditText validateCode = (EditText)findViewById(R.id.loginValidateCode);
 				boolean isTrue = true;
-//				if(!code.toLowerCase().equals(validateCode.toString().toLowerCase())){
-//					new AlertDialog.Builder(LogInActivity.this)
-//									.setMessage("验证码不正确")
-//									.setPositiveButton("确定", null)
-//									.show();
-//					isTrue = false;
-//				}
+				System.out.println(validateCode.getText().toString());
+				if(!code.equals(validateCode.getText().toString())){
+					new AlertDialog.Builder(LogInActivity.this)
+									.setMessage("验证码不正确")
+									.setPositiveButton("确定", null)
+									.show();
+					isTrue = false;
+				}
 				String url = "http://192.168.1.100:8080/webServer/user/login";
 				if(isTrue){
 					new HttpClientLoginThread(url,

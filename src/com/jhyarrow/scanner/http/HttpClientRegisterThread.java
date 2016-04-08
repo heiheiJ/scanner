@@ -15,18 +15,23 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import android.os.Handler;
+import android.os.Message;
+
 public class HttpClientRegisterThread extends Thread{
 	private String url;
 	private String username;
 	private String password;
 	private String email;
 	private String phone;
-	public HttpClientRegisterThread(String url,String username,String password,String email,String phone){
+	private Handler handler;
+	public HttpClientRegisterThread(String url,String username,String password,String email,String phone,Handler handler){
 		this.url = url;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.phone = phone;
+		this.handler = handler;
 	}
 	
 	private void doHttpClientPost(){
@@ -44,6 +49,9 @@ public class HttpClientRegisterThread extends Thread{
 				if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
 					String content = EntityUtils.toString(response.getEntity());
 					System.out.println("content------->"+ content);
+					Message message = new Message();
+					message.obj = content;
+					handler.sendMessage(message);
 				}
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();

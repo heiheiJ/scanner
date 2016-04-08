@@ -1,12 +1,17 @@
 package com.jhyarrow.scanner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import com.jhyarrow.scanner.http.HttpClientRegisterThread;
 import com.jhyarrow.scanner.util.Code;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -20,6 +25,39 @@ public class RegisterActivity extends Activity{
 	private Button validate;
 	private ImageView validatePic;
 	private String code;
+	private Handler handler = new Handler(){
+		public void handleMessage(Message msg){
+			JSONTokener jsonParser = new JSONTokener((String)msg.obj);
+			try {
+				JSONObject result = (JSONObject) jsonParser.nextValue();
+				if(result.getString("email").equals("false")){
+					new AlertDialog.Builder(RegisterActivity.this)
+						.setMessage("邮箱已被注册")
+						.setPositiveButton("确定",null)
+						.show();
+				}else if(result.getString("phone").equals("false")){
+					new AlertDialog.Builder(RegisterActivity.this)
+					.setMessage("手机号码已被注册")
+					.setPositiveButton("确定",null)
+					.show();
+				}else if(result.getString("username").equals("false")){
+					new AlertDialog.Builder(RegisterActivity.this)
+					.setMessage("用户名已被注册")
+					.setPositiveButton("确定",null)
+					.show();
+				}else{
+					new AlertDialog.Builder(RegisterActivity.this)
+					.setMessage("注册成功")
+					.setPositiveButton("确定",null)
+					.show();
+					finish();
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,7 +84,7 @@ public class RegisterActivity extends Activity{
 				EditText phone = (EditText)findViewById(R.id.registerPhone);
 				EditText validateCode = (EditText)findViewById(R.id.registerValidateCode);
 				boolean isTrue = true;
-				if(!code.equals(validateCode.toString())){
+				if(!code.equals(validateCode.getText().toString())){
 					new AlertDialog.Builder(RegisterActivity.this)
 									.setMessage("验证码不正确")
 									.setPositiveButton("确定", null)
@@ -59,8 +97,8 @@ public class RegisterActivity extends Activity{
 							username.getText().toString(),
 							password.getText().toString(),
 							email.getText().toString(),
-							phone.getText().toString()).start();
-					finish();
+							phone.getText().toString(),
+							handler).start();
 				}
 			}
 		});
