@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+   >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/username" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/username"
+        android:textSize="26sp" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/loginUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/textView1"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/loginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/textView1"
         android:ems="10" >
 
         <requestFocus />
@@ -23,42 +39,69 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/loginUsername"
+        android:layout_marginTop="19dp"
+        android:layout_toLeftOf="@+id/loginUsername"
+        android:text="@string/password"
+        android:textSize="26sp" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/loginValidatePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/loginPassword"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/loginChange"
         android:src="@drawable/ic_launcher" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/loginChange"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/loginCancel"
+        android:layout_alignTop="@+id/loginValidatePic"
+        android:text="@string/change" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginValidatePic"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/loginPassword"
+        android:text="@string/validateCode"
+        android:textSize="26sp" />
+
+    <EditText
+        android:id="@+id/loginValidateCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/textView3"
         android:ems="10" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/loginSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/loginValidateCode"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="80dp"
         android:text="@string/submit" />
 
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/loginCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/loginSubmit"
+        android:layout_alignBottom="@+id/loginSubmit"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="64dp"
         android:text="@string/cancel" />
 
-</LinearLayout>
+</RelativeLayout>

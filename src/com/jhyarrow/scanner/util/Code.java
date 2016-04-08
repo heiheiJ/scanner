@@ -27,11 +27,11 @@ public class Code {
 	}
 	
 	//default settings
-	private static final int DEFAULT_CODE_LENGTH = 3;
+	private static final int DEFAULT_CODE_LENGTH = 6;
 	private static final int DEFAULT_FONT_SIZE = 25;
 	private static final int DEFAULT_LINE_NUMBER = 2;
 	private static final int BASE_PADDING_LEFT = 5, RANGE_PADDING_LEFT = 15, BASE_PADDING_TOP = 15, RANGE_PADDING_TOP = 20;
-	private static final int DEFAULT_WIDTH = 60, DEFAULT_HEIGHT = 40;
+	private static final int DEFAULT_WIDTH = 120, DEFAULT_HEIGHT = 40;
 	
 	//settings decided by the layout xml
 	//canvas width and height

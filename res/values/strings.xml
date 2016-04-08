@@ -12,7 +12,7 @@
 	<string name="cancel">取消</string>
 	<string name="test">帅哥你好！</string>
 	<string name="email">邮箱</string>
-	<string name="phone">手机号码</string>
-	<string name="validateCode">获取验证码</string>
+	<string name="phone">手机号</string>
+	<string name="validateCode">验证码</string>
 	<string name="change">换一张</string>
 </resources>
