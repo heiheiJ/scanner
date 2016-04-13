@@ -27,12 +27,14 @@ import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 
-public class PicViewActivity extends Activity{
+public class PicViewActivity extends Activity implements OnScrollListener{
 	private ListView listView;
 	private Context mContext;
 	private List<Map<String,Object>> dataList;
@@ -102,6 +104,18 @@ public class PicViewActivity extends Activity{
 			}
 			return false;
 		}
+		
+	}
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		// TODO Auto-generated method stub
 		
 	} 
 }

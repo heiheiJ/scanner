@@ -1,6 +1,8 @@
 package com.jhyarrow.scanner;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,28 +11,39 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.jhyarrow.scanner.http.HttpClientAddFilesThread;
 import com.jhyarrow.scanner.http.HttpClientGetFilesThread;
 import com.jhyarrow.scanner.util.IP;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-public class FileViewActivity extends Activity implements OnItemClickListener{
+public class FileViewActivity extends Activity implements OnItemClickListener,OnScrollListener{
 	private ListView listView;
 	private SimpleAdapter adapter;
 	private String username;
 	private List<Map<String,Object>> dataList;
 	private Context mContext;
-	private Handler handler = new Handler(){
+	private Button addFile;
+	private EditText editText;
+	private Handler getFileHandler = new Handler(){
 		public void handleMessage(Message msg){
 			try {
 				JSONObject json = new JSONObject((String)msg.obj);
@@ -40,7 +53,7 @@ public class FileViewActivity extends Activity implements OnItemClickListener{
 					JSONObject file = fileData.getJSONObject(i);
 					map.put("fileName", file.getString("fileName"));
 					map.put("fileSize", file.getString("fileSize"));
-					map.put("createTime", file.getString("createTime"));
+					map.put("createTime", getDate(file.getString("createTime")));
 					dataList.add(map);
 				}
 				listView.setAdapter(adapter);
@@ -51,6 +64,23 @@ public class FileViewActivity extends Activity implements OnItemClickListener{
 			}
 			
 		}
+	};
+	private Handler addFileHandler = new Handler(){
+		public void handleMessage(Message msg) {
+				try {
+					JSONObject file = new JSONObject((String)msg.obj);
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("fileName", file.getString("fileName"));
+					map.put("fileSize", file.getString("fileSize"));
+					map.put("createTime", getDate(file.getString("createTime")));
+					dataList.add(map);
+					listView.setAdapter(adapter);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		};
 	};
 	
 	
@@ -69,8 +99,31 @@ public class FileViewActivity extends Activity implements OnItemClickListener{
 		username = getIntent().getExtras().getString("username");
 		System.out.println(username);
 		listView.setOnItemClickListener(this);
-		new HttpClientGetFilesThread(username, url, handler).start();
-		
+		new HttpClientGetFilesThread(username, url, getFileHandler).start();
+		editText = new EditText(this);
+		addFile = (Button) findViewById(R.id.addFile);
+		addFile.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Builder builder = new AlertDialog.Builder(FileViewActivity.this);
+				builder.setTitle("文件名");
+				builder.setView(editText);
+				builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String fileName = editText.getText().toString();
+						String url = "http://" + IP.getInstance().getIpAddress() + ":8080/webServer/file/addFile";
+						new HttpClientAddFilesThread(username,fileName,url,addFileHandler).start();
+					}
+				});
+				builder.setNegativeButton("取消", null);
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			}
+		});
 	}
 
 
@@ -82,5 +135,25 @@ public class FileViewActivity extends Activity implements OnItemClickListener{
 		bundle.putInt("position", position);
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public String getDate(String tmp){
+		BigInteger dateInt = new BigInteger(tmp);
+		Date date = new Date(dateInt.longValue());
+		return date.getYear()+1900 + "-" + date.getMonth() + "-" + date.getDay();
 	}
 }

@@ -18,4 +18,5 @@
 	<string name="fileName">文件名</string>
 	<string name="fileSize">文件大小</string>
 	<string name="createTime">创建时间</string>
+	<string name="add">添加</string>
 </resources>

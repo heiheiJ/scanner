@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
+	<Button
+        android:id="@+id/addFile"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/add" />
 
-    <TextView 
+    <TextView
         android:id="@+id/fileTextView1"
         android:layout_width="100sp"
         android:layout_height="25sp"
-        android:text="@string/fileName"
-    >
-    </TextView>
+        android:layout_alignBaseline="@+id/fileTextView2"
+        android:layout_alignBottom="@+id/fileTextView2"
+        android:layout_alignParentLeft="true"
+        android:text="@string/fileName" />
 
     <TextView
         android:id="@+id/fileTextView2"
         android:layout_width="100sp"
         android:layout_height="25sp"
-        android:layout_alignParentTop="true"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
         android:layout_toRightOf="@+id/fileTextView1"
         android:text="@string/fileSize" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="100sp"
+        android:layout_height="25sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/addFile"
+        android:text="@string/createTime" />
 
     <ListView
         android:id="@+id/mainListView"
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/fileTextView1" >
+        android:layout_below="@+id/fileTextView1"
+        android:fastScrollEnabled="true"
+        android:focusable="true" >
     </ListView>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="100sp"
-        android:layout_height="25sp"
-        android:layout_above="@+id/mainListView"
-        android:layout_toRightOf="@+id/fileTextView2"
-        android:text="@string/createTime" />
 
 </RelativeLayout>
