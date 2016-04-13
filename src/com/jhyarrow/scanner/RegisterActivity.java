@@ -6,6 +6,7 @@ import org.json.JSONTokener;
 
 import com.jhyarrow.scanner.http.HttpClientRegisterThread;
 import com.jhyarrow.scanner.util.Code;
+import com.jhyarrow.scanner.util.IP;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -91,7 +92,7 @@ public class RegisterActivity extends Activity{
 									.show();
 					isTrue = false;
 				}
-				String url = "http://192.168.1.100:8080/webServer/user/register";
+				String url = "http://" + IP.getInstance().getIpAddress() + ":8080/webServer/user/register";
 				if(isTrue){
 					new HttpClientRegisterThread(url,
 							username.getText().toString(),

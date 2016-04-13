@@ -6,6 +6,7 @@ import org.json.JSONTokener;
 
 import com.jhyarrow.scanner.http.HttpClientLoginThread;
 import com.jhyarrow.scanner.util.Code;
+import com.jhyarrow.scanner.util.IP;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,7 +53,11 @@ public class LogInActivity extends Activity{
 					.setPositiveButton("È·¶¨", null)
 					.show();
 				}
-				Intent intent = new Intent(mContext,MainViewActivity.class);
+				Intent intent = new Intent(mContext,FileViewActivity.class);
+				EditText username = (EditText)findViewById(R.id.loginUsername);
+				Bundle bundle = new Bundle();
+				bundle.putString("username", username.getText().toString());
+				intent.putExtras(bundle);
 				startActivity(intent);
 				finish();
 			} catch (JSONException e) {
@@ -95,7 +100,7 @@ public class LogInActivity extends Activity{
 									.show();
 					isTrue = false;
 				}
-				String url = "http://192.168.1.100:8080/webServer/user/login";
+				String url = "http://" + IP.getInstance().getIpAddress() + ":8080/webServer/user/login";
 				if(isTrue){
 					new HttpClientLoginThread(url,
 							username.getText().toString(), 
