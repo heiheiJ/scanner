@@ -47,4 +47,25 @@
         android:focusable="true" >
     </ListView>
 
+    <Button
+        android:id="@+id/fileReturn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/retu" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/addFile"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/addFile"
+        android:layout_toRightOf="@+id/fileReturn"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="" />
+
 </RelativeLayout>

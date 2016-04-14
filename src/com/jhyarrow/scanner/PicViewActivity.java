@@ -13,11 +13,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.jhyarrow.scanner.http.HttpClientAddFilesThread;
 import com.jhyarrow.scanner.http.HttpClientGetPicsThread;
 import com.jhyarrow.scanner.util.IP;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -25,10 +29,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -39,6 +44,8 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 	private Context mContext;
 	private List<Map<String,Object>> dataList;
 	private SimpleAdapter adapter;
+	private Button cancel;
+	private Button addPic;
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg) {
 			try {
@@ -82,6 +89,35 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 		String position = String.valueOf(getIntent().getExtras().getInt("position"));
 		String username = getIntent().getExtras().getString("username");
 		dataList = new ArrayList<Map<String,Object>>();
+		addPic = (Button) findViewById(R.id.addPic);
+		addPic.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Builder builder = new AlertDialog.Builder(PicViewActivity.this);
+				builder.setTitle("选择文件来源");
+				builder.setPositiveButton("拍照", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+					}
+				});
+				builder.setNeutralButton("本地图片", null);
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			}
+		});
+		cancel = (Button) findViewById(R.id.picReturn);
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+				
+			}
+		});
+		
 		adapter = new SimpleAdapter(this,dataList,R.layout.pic,
 				new String[]{"picViewContent"},
 				new int[]{R.id.picViewContent});

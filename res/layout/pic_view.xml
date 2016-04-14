@@ -22,4 +22,30 @@
         android:focusable="true" >
     </ListView>
 
+    <Button
+        android:id="@+id/picReturn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/retu" />
+
+    <EditText
+        android:id="@+id/fileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/picReturn"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/addPic"
+        android:layout_toRightOf="@+id/picReturn"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="" />
+
+    <View
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 </RelativeLayout>

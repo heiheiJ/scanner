@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 public class FileViewActivity extends Activity implements OnItemClickListener,OnScrollListener{
 	private ListView listView;
@@ -43,6 +44,8 @@ public class FileViewActivity extends Activity implements OnItemClickListener,On
 	private Context mContext;
 	private Button addFile;
 	private EditText editText;
+	private Button retu;
+	private TextView textView;
 	private Handler getFileHandler = new Handler(){
 		public void handleMessage(Message msg){
 			try {
@@ -97,7 +100,8 @@ public class FileViewActivity extends Activity implements OnItemClickListener,On
 
 		String url = "http://" + IP.getInstance().getIpAddress() + ":8080/webServer/user/getFiles";
 		username = getIntent().getExtras().getString("username");
-		System.out.println(username);
+		textView = (TextView)findViewById(R.id.userName);
+		textView.setText(username + "µÄÎÄ¼þ");
 		listView.setOnItemClickListener(this);
 		new HttpClientGetFilesThread(username, url, getFileHandler).start();
 		editText = new EditText(this);
@@ -124,6 +128,16 @@ public class FileViewActivity extends Activity implements OnItemClickListener,On
 				dialog.show();
 			}
 		});
+		
+		retu = (Button) findViewById(R.id.fileReturn);
+		retu.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+				
+			}
+		});
 	}
 
 
@@ -133,6 +147,8 @@ public class FileViewActivity extends Activity implements OnItemClickListener,On
 		Bundle bundle = new Bundle();
 		bundle.putString("username", username);
 		bundle.putInt("position", position);
+		TextView t = (TextView)findViewById(R.id.mainFileName);
+		bundle.putString("fileName",t.getText().toString());
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
