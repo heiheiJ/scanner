@@ -20,4 +20,6 @@
 	<string name="createTime">创建时间</string>
 	<string name="add">添加</string>
 	<string name="retu">返回</string>
+	<string name="rotate">旋转</string>
+	<string name="save">保存</string>
 </resources>

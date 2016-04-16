@@ -1,6 +1,7 @@
 package com.jhyarrow.scanner;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
@@ -13,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.jhyarrow.scanner.http.HttpClientAddFilesThread;
 import com.jhyarrow.scanner.http.HttpClientGetPicsThread;
 import com.jhyarrow.scanner.util.IP;
 
@@ -22,11 +22,14 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -46,6 +50,7 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 	private SimpleAdapter adapter;
 	private Button cancel;
 	private Button addPic;
+	private EditText fileName;
 	private Handler handler = new Handler(){
 		public void handleMessage(Message msg) {
 			try {
@@ -88,7 +93,10 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 		listView = (ListView) findViewById(R.id.picListView);
 		String position = String.valueOf(getIntent().getExtras().getInt("position"));
 		String username = getIntent().getExtras().getString("username");
+		String file = getIntent().getExtras().getString("fileName");
 		dataList = new ArrayList<Map<String,Object>>();
+		fileName = (EditText)findViewById(R.id.fileName);
+		fileName.setText(file);
 		addPic = (Button) findViewById(R.id.addPic);
 		addPic.setOnClickListener(new OnClickListener() {
 			
@@ -100,10 +108,27 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						
+						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+							String mstrPath = "/sdcard/heihei";
+						   	File path = new File(mstrPath);
+						   	if(!path.exists()){
+						   		path.mkdirs();
+						   	}
+						   	String mstrFileName = "heihei.jpg";
+						   	String mstrFilePath = mstrPath + "/" + mstrFileName;
+						   	File file = new File(mstrFilePath);
+						   	Uri uri = Uri.fromFile(file);
+						   	intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+						   	startActivityForResult(intent, 1); 
 					}
 				});
-				builder.setNeutralButton("本地图片", null);
+				builder.setNeutralButton("本地图片", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(mContext,PicOperateActivity.class);
+						startActivity(intent);
+					}
+				});
 				AlertDialog dialog = builder.create();
 				dialog.show();
 			}
@@ -142,6 +167,7 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 		}
 		
 	}
+
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {

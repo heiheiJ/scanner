@@ -2,7 +2,7 @@ package com.jhyarrow.scanner.util;
 
 public class IP {
 	private static IP ip;
-	private static String ipAddress = "192.168.18.1";
+	private static String ipAddress = "192.168.42.3";
 	
 	public static IP getInstance(){
 		if(ip == null){

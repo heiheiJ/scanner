@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+	
+	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="400sp"
+	        android:layout_weight="1"
+	        android:id="@+id/picOperate"
+	        android:layout_gravity="center"
+	        />
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/tone_view"
+	        android:orientation = "vertical"
+	        />
+	    <Button
+	        android:id = "@+id/rotate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rotate"/>
+	    
+	    <Button
+	        android:id = "@+id/picOperateSave"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/save"/>
+	</LinearLayout>
+</ScrollView>

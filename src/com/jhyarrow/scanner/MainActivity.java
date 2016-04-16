@@ -1,10 +1,6 @@
 package com.jhyarrow.scanner;
 
 
-import com.jhyarrow.scanner.R;
-import com.jhyarrow.scanner.R.id;
-import com.jhyarrow.scanner.R.layout;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
