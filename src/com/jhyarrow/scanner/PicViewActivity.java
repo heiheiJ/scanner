@@ -104,24 +104,7 @@ public class PicViewActivity extends Activity implements OnScrollListener{
 			public void onClick(View v) {
 				Builder builder = new AlertDialog.Builder(PicViewActivity.this);
 				builder.setTitle("选择文件来源");
-				builder.setPositiveButton("拍照", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-							String mstrPath = "/sdcard/heihei";
-						   	File path = new File(mstrPath);
-						   	if(!path.exists()){
-						   		path.mkdirs();
-						   	}
-						   	String mstrFileName = "heihei.jpg";
-						   	String mstrFilePath = mstrPath + "/" + mstrFileName;
-						   	File file = new File(mstrFilePath);
-						   	Uri uri = Uri.fromFile(file);
-						   	intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-						   	startActivityForResult(intent, 1); 
-					}
-				});
+				builder.setPositiveButton("拍照", null);
 				builder.setNeutralButton("本地图片", new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

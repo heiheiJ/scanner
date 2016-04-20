@@ -70,7 +70,7 @@ public class ToneLayer {
 	/**
 	 * 饱和度
 	 */
-	private float mSaturationValue = 0F;
+	private float mSaturationValue = 1F;
 
 	/**
 	 * 色相
